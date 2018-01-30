@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}尚硅谷书店-我的订单{% endblock title %}
+{% block title %}尚佳教育-我的订单{% endblock title %}
 {% block topfiles %}
 {% endblock topfiles %}
 {% block body %}
@@ -12,7 +12,7 @@
 			<dt>寄送到：</dt>
 			<dd><input type="radio" name="addr_id" value="{{ addr.id }}" checked="">{{ addr.recipient_addr }} （{{ addr.recipient_name }} 收） {{ addr.recipient_phone }}</dd>
 		</dl>
-		<a href="{% url 'user:address'%}" class="edit_site">编辑收货地址</a>
+		<a href="{% url 'user:address' %}" class="edit_site">编辑收货地址</a>
 
 	</div>
 
@@ -65,7 +65,7 @@
 
 	<div class="order_submit clearfix">
         {% csrf_token %}
-		<a href="{% url 'order:pay' %}" books_ids="{{ books_ids }}" id="order_btn">提交订单</a>
+		<a href="javascript:;" books_ids="{{ books_ids }}" id="order_btn">提交订单</a>
 	</div>
 {% endblock body %}
 {% block bottom %}

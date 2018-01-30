@@ -21,6 +21,47 @@ def register(request):
 	return render(request, 'users/register.html')
 
 
+# def register_handle(request):
+# 	'''进行用户注册处理'''
+# 	# 接收数据
+# 	username = request.POST.get('user_name')
+# 	password = request.POST.get('pwd')
+# 	email = request.POST.get('email')
+#
+# 	# 进行数据校验
+# 	if not all([username, password, email]):
+# 		# 有数据为空
+# 		return render(request, 'users/register.html', {'errmsg': '参数不能为空!'})
+#
+# 	# 判断邮箱是否合法
+# 	if not re.match(r'^[a-z0-9][\w\.\-]*@[a-z0-9\-]+(\.[a-z]{2,5}){1,2}$', email):
+# 		# 邮箱不合法
+# 		return render(request, 'users/register.html', {'errmsg': '邮箱不合法!'})
+#
+# 	p = Passport.objects.check_passport(username=username)
+#
+# 	if p:
+# 		return render(request, 'users/register.html', {'errmsg': '用户名已存在！'})
+#
+# 	# 进行业务处理:注册，向账户系统中添加账户
+# 	# Passport.objects.create(username=username, password=password, email=email)
+#
+# 	passport = Passport.objects.add_one_passport(username=username, password=password, email=email)
+#
+# 	# 生成激活的token itsdangerous
+# 	serializer = Serializer(settings.SECRET_KEY, 3600)
+# 	token = serializer.dumps({'confirm': passport.id})  # 返回bytes
+# 	token = token.decode()
+#
+# 	# 给用户的邮箱发激活邮件
+# 	send_mail('尚硅谷书城用户激活', '', settings.EMAIL_FROM, [email],
+# 			  html_message='<a href="http://127.0.0.1:8000/user/active/%s/">http://127.0.0.1:8000/user/active/</a>' % token)
+# 	send_active_email.delay(token, username, email)
+#
+# 	return redirect(reverse('books:login'))
+
+
+
 def register_handle(request):
 	'''进行用户注册处理'''
 	# 接收数据
@@ -43,20 +84,17 @@ def register_handle(request):
 	if p:
 		return render(request, 'users/register.html', {'errmsg': '用户名已存在！'})
 
-	# 进行业务处理:注册，向账户系统中添加账户
-	# Passport.objects.create(username=username, password=password, email=email)
 	passport = Passport.objects.add_one_passport(username=username, password=password, email=email)
 
-	# 生成激活的token itsdangerous
+
 	serializer = Serializer(settings.SECRET_KEY, 3600)
-	token = serializer.dumps({'confirm': passport.id})  # 返回bytes
+	token = serializer.dumps({'confirm': passport.id})
 	token = token.decode()
-
-	# 给用户的邮箱发激活邮件
-	send_mail('尚硅谷书城用户激活', '', settings.EMAIL_FROM, [email],
-			  html_message='<a href="http://127.0.0.1:8000/user/active/%s/">http://127.0.0.1:8000/user/active/</a>' % token)
+	print(token, username, email)
+	print('11111')
 	send_active_email.delay(token, username, email)
-
+	print('22222')
+	# 注册完，还是返回登录页。
 	return redirect(reverse('books:index'))
 
 

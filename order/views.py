@@ -59,7 +59,7 @@ def order_place(request):
 
     # 1,2,3
     books_ids = ','.join(books_ids)
-    # 组织模板上下文
+
     context = {
         'addr': addr,
         'books_li': books_li,

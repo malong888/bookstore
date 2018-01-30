@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-{% block title %}尚硅谷书店-详情页{% endblock title %}
+{% block title %}尚佳教育-详情页{% endblock title %}
 {% block topfiles %}
     <script>
         $(function () {
@@ -68,20 +68,20 @@
                 <h1>全部商品分类</h1>
                 <span></span>
                 <ul class="subnav">
-                    <li><a href="#" class="python">Python</a></li>
-                    <li><a href="#" class="javascript">Javascript</a></li>
-                    <li><a href="#" class="algorithms">数据结构与算法</a></li>
-                    <li><a href="#" class="machinelearning">机器学习</a></li>
-                    <li><a href="#" class="operatingsystem">操作系统</a></li>
-                    <li><a href="#" class="database">数据库</a></li>
+                    <li><a href="#" class="python">自考</a></li>
+                    <li><a href="#" class="javascript">远程教育</a></li>
+                    <li><a href="#" class="algorithms">成考</a></li>
+                    <li><a href="#" class="machinelearning">在校研究生</a></li>
+                    <li><a href="#" class="operatingsystem">专升本</a></li>
+                    <li><a href="#" class="database">网教</a></li>
                 </ul>
             </div>
             <ul class="navlist fl">
                 <li><a href="">首页</a></li>
                 <li class="interval">|</li>
-                <li><a href="">移动端书城</a></li>
+                <li><a href="">移动客户端</a></li>
                 <li class="interval">|</li>
-                <li><a href="">秒杀</a></li>
+                <li><a href="">全部课程</a></li>
             </ul>
         </div>
     </div>
@@ -89,7 +89,7 @@
     <div class="breadcrumb">
         <a href="#">全部分类</a>
         <span>></span>
-        <a href="#">Python</a>
+        <a href="#">{{ books.name }}</a>
         <span>></span>
         <a href="#">商品详情</a>
     </div>
@@ -115,7 +115,7 @@
             <div class="total">总价：<em>100元</em></div>
             <div class="operate_btn">
                 {% csrf_token %}
-                <a href="javascript:;" class="buy_btn">立即购买</a>
+                <a href="{% url 'order:place' %}" books_id="{{ books.id }}" class="buy_btn" id="add_cart">立即购买</a>
                 <a href="javascript:;" books_id="{{ books.id }}" class="add_cart" id="add_cart">加入购物车</a>
                 <a href="#" id="write-comment" class="comment">我要写评论</a>
             </div>
@@ -273,13 +273,6 @@
             })
         })
     </script>
-     <script>
-            $.get('/cart/count/', function (data) {
-                // {'res':商品的总数}
-                $('#show_count').html(data.res)
-            })
-        </script>
-
     <style type="text/css">
         .comment {
             background-color: #c40000;

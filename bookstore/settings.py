@@ -23,9 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&xnr3l7bo@@ael(es$%=14zt96&w&a((_qi+s=p+qys)qn9lq@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,7 +45,8 @@ INSTALLED_APPS = [
     'order',
     'comments',
     'haystack',
-
+    # 'djcelery',
+    'demoapp',
 ]
 
 # MIDDLEWARE = [
@@ -126,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'UTC'
 
@@ -141,7 +143,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
@@ -174,14 +176,12 @@ SESSION_CACHE_ALIAS = "default"
 ALIPAY_URL='https://openapi.alipaydev.com/gateway.do'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.126.com'
-EMAIL_PORT = 25
-# 发送邮件的邮箱
-EMAIL_HOST_USER = 'xxxxxxxx@126.com'
-# 在邮箱中设置的客户端授权密码
-EMAIL_HOST_PASSWORD = 'xxxxxxxx'
-# 收件人看到的发件人
-EMAIL_FROM = 'shangguigu<xxxxxxxx@126.com>'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_USE_SSL = True
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'mlhcc_1314@163.com'
+EMAIL_HOST_PASSWORD = 'aIcUI520'
+EMAIL_FROM = 'shangguigu<mlhcc_1314@163.com>'
 
 # 全文检索配置
 HAYSTACK_CONNECTIONS = {
@@ -200,3 +200,5 @@ HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 6 # 指定搜索结果每页的条数
 
 ALIPAY_URL='https://openapi.alipaydev.com/gateway.do'
+# CELERY_BROKER_URL = 'redis://localhost:6379/6'
+# CELERY_RESULT_BACKEND = 'redis://localhost:637celery -A testceleryredis worker -l info9/6'
