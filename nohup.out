@@ -4,3 +4,49 @@
 [2018-01-30 12:02:03 +0800] [44449] [INFO] Booting worker with pid: 44449
 [2018-01-30 12:02:03 +0800] [44450] [INFO] Booting worker with pid: 44450
 [2018-01-30 12:02:04 +0800] [44451] [INFO] Booting worker with pid: 44451
+[2018-01-30 21:01:03 +0800] [62084] [INFO] Booting worker with pid: 62084
+[2018-01-30 21:01:03 +0800] [62085] [INFO] Booting worker with pid: 62085
+[2018-01-30 21:01:04 +0800] [62086] [INFO] Booting worker with pid: 62086
+[2018-01-30 21:01:04 +0800] [44446] [INFO] Handling signal: hup
+[2018-01-30 21:01:04 +0800] [44446] [INFO] Hang up: Master
+[2018-01-30 21:01:04 +0800] [62087] [INFO] Booting worker with pid: 62087
+[2018-01-30 21:01:04 +0800] [62088] [INFO] Booting worker with pid: 62088
+[2018-01-30 21:01:04 +0800] [62089] [INFO] Booting worker with pid: 62089
+[2018-01-30 13:01:07 +0000] [62085] [INFO] Worker exiting (pid: 62085)
+[2018-01-30 13:01:07 +0000] [62084] [INFO] Worker exiting (pid: 62084)
+[2018-01-30 13:01:07 +0000] [62086] [INFO] Worker exiting (pid: 62086)
+[2018-01-31 09:02:23 +0800] [3348] [INFO] Starting gunicorn 19.7.1
+[2018-01-31 09:02:23 +0800] [3348] [INFO] Listening at: http://127.0.0.1:8080 (3348)
+[2018-01-31 09:02:23 +0800] [3348] [INFO] Using worker: sync
+[2018-01-31 09:02:23 +0800] [3351] [INFO] Booting worker with pid: 3351
+[2018-01-31 09:02:23 +0800] [3352] [INFO] Booting worker with pid: 3352
+[2018-01-31 09:02:23 +0800] [3353] [INFO] Booting worker with pid: 3353
+[2018-01-31 03:03:38 +0000] [3353] [INFO] Parent changed, shutting down: <Worker 3353>
+[2018-01-31 03:03:38 +0000] [3353] [INFO] Worker exiting (pid: 3353)
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[2018-01-31 03:03:38 +0000] [3352] [INFO] Parent changed, shutting down: <Worker 3352>
+[2018-01-31 03:03:38 +0000] [3352] [INFO] Worker exiting (pid: 3352)
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[2018-01-31 11:03:45 +0800] [38129] [INFO] Starting gunicorn 19.7.1
+[2018-01-31 11:03:45 +0800] [38129] [INFO] Listening at: http://127.0.0.1:8080 (38129)
+[2018-01-31 11:03:45 +0800] [38129] [INFO] Using worker: sync
+[2018-01-31 11:03:45 +0800] [38132] [INFO] Booting worker with pid: 38132
+[2018-01-31 11:03:45 +0800] [38133] [INFO] Booting worker with pid: 38133
+[2018-01-31 11:03:45 +0800] [38134] [INFO] Booting worker with pid: 38134
+[2018-01-31 11:51:05 +0000] [38133] [INFO] Parent changed, shutting down: <Worker 38133>
+[2018-01-31 11:51:05 +0000] [38133] [INFO] Worker exiting (pid: 38133)
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[2018-01-31 11:51:17 +0000] [38134] [INFO] Parent changed, shutting down: <Worker 38134>
+[2018-01-31 11:51:17 +0000] [38134] [INFO] Worker exiting (pid: 38134)
+[<Books: Books object>, <Books: Books object>, <Books: Books object>]
+[2018-01-31 20:33:59 +0800] [66147] [INFO] Starting gunicorn 19.7.1
+[2018-01-31 20:33:59 +0800] [66147] [INFO] Listening at: http://127.0.0.1:8080 (66147)
+[2018-01-31 20:33:59 +0800] [66147] [INFO] Using worker: sync
+[2018-01-31 20:33:59 +0800] [66150] [INFO] Booting worker with pid: 66150
+[2018-01-31 20:33:59 +0800] [66151] [INFO] Booting worker with pid: 66151
+[2018-01-31 20:33:59 +0800] [66154] [INFO] Booting worker with pid: 66154

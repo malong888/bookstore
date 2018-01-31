@@ -15,10 +15,11 @@
             </ul>
         </div>
         <div class="right_content clearfix">
-                {% csrf_token %}
-                <h3 class="common_title2">全部订单</h3>
-                {# OrderInfo #}
-                {% for order in order_li %}
+            {% csrf_token %}
+            <h3 class="common_title2">全部订单</h3>
+
+            {# OrderInfo #}
+            {% for order in order_li %}
                 <ul class="order_list_th w978 clearfix">
                     <li class="col01">{{ order.create_time }}</li>
                     <li class="col02">订单号：{{ order.order_id }}</li>
@@ -27,85 +28,114 @@
 
                 <table class="order_list_table w980">
                     <tbody>
-                        <tr>
-                            <td width="55%">
-                                {# 遍历出来的order_books是一个OrderGoods对象 #}
-                                {% for order_books in order.order_books_li %}
+                    <tr>
+                        <td width="52%">
+                            {# 遍历出来的order_books是一个OrderGoods对象 #}
+                            {% for order_books in order.order_books_li %}
                                 <ul class="order_book_list clearfix">
                                     <li class="col01"><img src="{% static order_books.books.image %}"></li>
-                                    <li class="col02">{{ order_books.books.name }}<em>{{ order_books.books.price }}元/{{ order_books.books.unit }}</em></li>
+                                    <li class="col02">{{ order_books.books.name }}<em>{{ order_books.books.price }}元/{{ order_books.books.unit }}</em>
+                                    </li>
                                     <li class="col03">{{ order_books.count }}</li>
                                     <li class="col04">{{ order_books.amount }}元</li>
                                 </ul>
-                                {% endfor %}
-                            </td>
-                            <td width="15%">{{ order.total_price }}元</td>
-                            <td width="15%">{{ order.status }}</td>
-                            <td width="15%"><a href="#" pay_method="{{ order.pay_method }}" order_id="{{ order.order_id }}" order_status="{{ order.status }}" class="oper_btn">去付款</a></td>
-                        </tr>
+                            {% endfor %}
+                        </td>
+                        <td width="12%">{{ order.total_price }}元</td>
+                        <td width="12%">{{ order.status }}</td>
+                        <td width="12%"><a href="#" class="col100" pay_method="{{ order.pay_method }}"
+                                           order_id="{{ order.order_id }}"
+                                           order_status="{{ order.status }}" class="oper_btn">去付款</a></td>
+                        <td width="12%" class="col101"><a href="javascript:;">删除</a></td>
+                        {#                        <td width="10%" class="col102"><input type="checkbox" name="order_id" value="{{ order.id }}" checked></td>#}
+                    </tr>
                     </tbody>
                 </table>
+            {% endfor %}
+            <div class="pagenation">
+                {% if order_books_li.has_previous %}
+                    <a href="/list/{{ type_id }}/{{ order_books_lis.previous_page_number }}/?sort={{ sort }}">上一页</a>
+                {% endif %}
+                {% for pindex in pages %}
+                    {% if pindex == order_books_li.number %}
+                        <a href="/list/{{ type_id }}/{{ pindex }}/?sort={{ sort }}" class="active">{{ pindex }}</a>
+                    {% else %}
+                        <a href="/list/{{ type_id }}/{{ pindex }}/?sort={{ sort }}">{{ pindex }}</a>
+                    {% endif %}
                 {% endfor %}
-                <div class="pagenation">
-                    {% if books_li.has_previous %}
-                        <a href="/list/{{ type_id }}/{{ books_li.previous_page_number }}/?sort={{ sort }}">上一页</a>
-                    {% endif %}
-                    {% for pindex in pages %}
-                        {% if pindex == books_li.number %}
-                            <a href="/list/{{ type_id }}/{{ pindex }}/?sort={{ sort }}" class="active">{{ pindex }}</a>
-                        {% else %}
-                            <a href="/list/{{ type_id }}/{{ pindex }}/?sort={{ sort }}">{{ pindex }}</a>
-                        {% endif %}
-                    {% endfor %}
-                    {% if books_li.has_next %}
-                        <a href="/list/{{ type_id }}/{{ books_li.next_page_number }}/?sort={{ sort }}">下一页></a>
-                    {% endif %}
-                </div>
+                {% if order_books_li.has_next %}
+                    <a href="/list/{{ type_id }}/{{ order_books_li.next_page_number }}/?sort={{ sort }}">下一页></a>
+                {% endif %}
+            </div>
 
-{#                <div class="pagenation">#}
-{#                    <a href="#">上一页</a>#}
-{#                    <a href="#" class="active">1</a>#}
-{#                    <a href="#">2</a>#}
-{#                    <a href="#">3</a>#}
-{#                    <a href="#">4</a>#}
-{#                    <a href="#">5</a>#}
-{#                    <a href="#">下一页></a>#}
-{#                </div>#}
+            {#                <div class="pagenation">#}
+            {#                    <a href="#">上一页</a>#}
+            {#                    <a href="#" class="active">1</a>#}
+            {#                    <a href="#">2</a>#}
+            {#                    <a href="#">3</a>#}
+            {#                    <a href="#">4</a>#}
+            {#                    <a href="#">5</a>#}
+            {#                    <a href="#">下一页></a>#}
+            {#                </div>#}
         </div>
     </div>
 {% endblock body %}
-{% block bottomfiles%}
+{% block bottomfiles %}
     <script>
-    $(function () {
-        $('.oper_btn').click(function () {
-            // 获取订单id和订单的状态
-            order_id = $(this).attr('order_id')
-            order_status = $(this).attr('order_status')
-            csrf = $('input[name="csrfmiddlewaretoken"]').val()
-            params = {'order_id':order_id, 'csrfmiddlewaretoken':csrf}
-            if (order_status == 1){
-                $.post('/order/pay/', params, function (data) {
-                    if (data.res == 3){
-                        // 把用户引导支付页面
-                        window.open(data.pay_url)
-                        // 查询用户的支付结果
-                        $.post('/order/check_pay/', params, function (data) {
-                            if (data.res == 3){
-                                alert('支付成功')
-                                // 重新刷新页面
-                                location.reload()
-                            }
-                            else{
-                                alert(data.errmsg)
-                            }
-                        })
-                    }
-                    else{
-                        alert(data.errmsg)
-                    }
-                })
-            }
+        $(function () {
+
+            $('.oper_btn').click(function () {
+                // 获取订单id和订单的状态
+                order_id = $(this).attr('order_id');
+                order_status = $(this).attr('order_status');
+                csrf = $('input[name="csrfmiddlewaretoken"]').val();
+                params = {'order_id': order_id, 'csrfmiddlewaretoken': csrf};
+                if (order_status == 1) {
+                    $.post('/order/pay/', params, function (data) {
+                        if (data.res == 3) {
+                            // 把用户引导支付页面
+                            window.open(data.pay_url);
+                            // 查询用户的支付结果
+                            $.post('/order/check_pay/', params, function (data) {
+                                if (data.res == 3) {
+                                    alert('支付成功');
+                                    // 重新刷新页面
+                                    location.reload()
+                                }
+                                else {
+                                    alert(data.errmsg)
+                                }
+                            })
+                        }
+                        else {
+                            alert(data.errmsg)
+                        }
+                    })
+                }
+            });
+            $('.col101').click(function () {
+
+                // 获取删除的商品的id
+                orders_table = $(this).parents('table');
+                console.log(orders_table);
+                orders_id = orders_table.find('.col100').attr('order_id');
+                csrf = $('input[name="csrfmiddlewaretoken"]').val();
+                haha = orders_table.prev();
+                var con = confirm('确定删除订单');
+                if (con) {
+                    params = {
+                        "orders_id": orders_id,
+                        "csrfmiddlewaretoken": csrf
+                    };
+                    // 发起ajax请求，访问
+                    $.post('/order/del/', params, function (data) {
+                        if (data.res == 3) {
+                            orders_table.remove();
+                            haha.remove()
+                        }
+                    })
+                }
+            })
         })
-    })
     </script>
 {% endblock bottomfiles %}
